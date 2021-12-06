@@ -18,10 +18,6 @@ const bitrateMaxMin = require('./tests/bitrateMaxMin');
 const ended = require('./tests/ended');
 
 var registerSuites = function (stream) {
-    var suites = intern.config.testSuites || ['playFromTime', 'pause', 'seek', 'seekPeriods', 'audioSwitch', 'textSwitch','initialAudio' , 'initialText', 'liveDelay','ended'];
-
-
-var registerSuites = function (stream) {
     var suites = intern.config.testSuites || ['playFromTime', 'pause', 'seek', 'seekPeriods', 'audioSwitch', 'textSwitch','initialAudio' , 'initialText','initialABR','bitrateMaxMin', 'ended'];
   
     setup.register(stream);
