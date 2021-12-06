@@ -15,10 +15,11 @@ const initialText = require('./tests/initialText');
 const liveDelay = require('./tests/liveDelay');
 const initialABR = require('./tests/initialABR');
 const bitrateMaxMin = require('./tests/bitrateMaxMin');
+const thumbnail = require('./tests/thumbnails');
 const ended = require('./tests/ended');
 
 var registerSuites = function (stream) {
-    var suites = intern.config.testSuites || ['playFromTime', 'pause', 'seek', 'seekPeriods', 'audioSwitch', 'textSwitch','initialAudio' , 'initialText','initialABR','bitrateMaxMin', 'ended'];
+    var suites = intern.config.testSuites || ['playFromTime', 'pause', 'seek', 'seekPeriods', 'audioSwitch', 'textSwitch','initialAudio' , 'initialText','liveDelay','initialABR','bitrateMaxMin','thumbnail', 'ended'];
   
     setup.register(stream);
     play.register(stream);
@@ -34,6 +35,7 @@ var registerSuites = function (stream) {
     if (suites.indexOf('liveDelay') !== -1) liveDelay.register(stream);
     if (suites.indexOf('initialABR') !== -1) initialABR.register(stream);
     if (suites.indexOf('bitrateMaxMin') !== -1) bitrateMaxMin.register(stream);
+    if (suites.indexOf('thumbnail') !== -1) thumbnail.register(stream);
     if (suites.indexOf('ended') !== -1) ended.register(stream);
 };
 

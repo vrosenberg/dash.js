@@ -157,6 +157,7 @@ module.exports = {
     attachTTMLRenderingDiv: function(ttmlDiv){
         player.attachTTMLRenderingDiv(ttmlDiv);
     },
+<<<<<<< HEAD
 
     getSettings: function(){
         return player.getSettings();
@@ -184,4 +185,10 @@ module.exports = {
     getQualityFor: function(type){
         return player.getQualityFor(type);
     },
+=======
+
+    containsThumbnails: function(){
+        return containsThumbnails();
+    }
+>>>>>>> upstream/feature-thumbnail_test
 };
