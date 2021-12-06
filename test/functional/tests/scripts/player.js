@@ -161,6 +161,7 @@ module.exports = {
     getSettings: function(){
         return player.getSettings();
     },
+<<<<<<< HEAD
 
     updateSettings: function(settings){
         player.updateSettings(settings);
@@ -169,6 +170,18 @@ module.exports = {
     timeAsUTC: function(){
         return player.timeAsUTC();
     },
+=======
+>>>>>>> upstream/feature-manual_abr
 
+    updateSettings: function(settings){
+        player.updateSettings(settings);
+    },
 
+    getBitrateInfoListFor: function(type){
+        return player.getBitrateInfoListFor(type);
+    },
+
+    getQualityFor: function(type){
+        return player.getQualityFor(type);
+    },
 };
