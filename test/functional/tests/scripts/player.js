@@ -158,11 +158,21 @@ module.exports = {
         player.attachTTMLRenderingDiv(ttmlDiv);
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> upstream/feature-pruning_test
 
     getSettings: function(){
         return player.getSettings();
     },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+    updateSettings: function(settings){
+        player.updateSettings(settings);
+    },
+>>>>>>> upstream/feature-pruning_test
 
     updateSettings: function(settings){
         player.updateSettings(settings);
