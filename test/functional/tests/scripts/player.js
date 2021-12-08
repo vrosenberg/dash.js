@@ -157,22 +157,14 @@ module.exports = {
     attachTTMLRenderingDiv: function(ttmlDiv){
         player.attachTTMLRenderingDiv(ttmlDiv);
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> upstream/feature-pruning_test
 
     getSettings: function(){
         return player.getSettings();
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
     updateSettings: function(settings){
         player.updateSettings(settings);
     },
->>>>>>> upstream/feature-pruning_test
 
     updateSettings: function(settings){
         player.updateSettings(settings);
@@ -181,8 +173,6 @@ module.exports = {
     timeAsUTC: function(){
         return player.timeAsUTC();
     },
-=======
->>>>>>> upstream/feature-manual_abr
 
     updateSettings: function(settings){
         player.updateSettings(settings);
@@ -195,10 +185,8 @@ module.exports = {
     getQualityFor: function(type){
         return player.getQualityFor(type);
     },
-=======
 
     containsThumbnails: function(){
         return containsThumbnails();
     }
->>>>>>> upstream/feature-thumbnail_test
 };
