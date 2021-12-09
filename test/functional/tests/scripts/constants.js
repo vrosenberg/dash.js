@@ -3,6 +3,7 @@ module.exports = {
     PROGRESS_DELAY: 3,      // Playback progress delay (in sec.) to be checked
     SEEK_END_SHIFT: 10,     // Shift (in sec.) when seeking to end
     DURATION_TOLERANCE: 3,  // Tolerance for duration (for seeking)
+    SEGMENT_DURATION_DEFAULT: 4,  // Default segment duration for streams, where segment duration is not obtainable
 
     SEEKBAR: {              // seekbar see \samples\functional-tests\index.html
         width: 220,

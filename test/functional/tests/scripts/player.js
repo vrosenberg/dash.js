@@ -188,5 +188,22 @@ module.exports = {
 
     containsThumbnails: function(){
         return containsThumbnails();
-    }
+    },
+
+    getSegmentLength: function(default_segment_duration){
+        let streamInfo = player.getActiveStream().getStreamInfo();
+        let dashMetrics = player.getDashMetrics();
+        let dashAdapter = player.getDashAdapter();
+        let periodIdx = streamInfo.index;
+        let repSwitch = dashMetrics.getCurrentRepresentationSwitch('video', true);
+        let adaptation = dashAdapter.getAdaptationForType(periodIdx, 'video', streamInfo);
+        let currentRep = adaptation.Representation_asArray.find(function (rep) {
+            return rep.id === repSwitch.to
+        })
+        console.log(currentRep);
+        if(currentRep.hasOwnProperty("SegmentTemplate")){
+            if(currentRep.SegmentTemplate.hasOwnProperty("duration")) return currentRep.SegmentTemplate.duration
+        }
+        return default_segment_duration;
+    },
 };

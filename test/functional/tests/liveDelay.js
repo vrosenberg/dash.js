@@ -20,15 +20,15 @@ const lodash = require('lodash');
 const NAME = 'LIVE_DELAY';
 
 // Test constants
-const LIVE_DELAY = 20; // Live delay in seconds
+const LIVE_DELAY_IN_SEGMENTS = 3; // Live delay =  Segment duration * live delay in segments
 const LIVE_DELAY_DELTA = 0.2; // Defines interval in which actual live delay is tolerable in fractions
 const INITIALBITRATE_VIDEO = 0;
 const AUTOSWITCHBITRATE_VIDEO = false;
 
 /** Live Delay is being set and lowest quality will be chosen in dash.js settings object */
-function getSettings(defaultSettings){
+function getSettings(defaultSettings, liveDelay){
     let settings = lodash.cloneDeep(defaultSettings);
-    settings.streaming.delay.liveDelay = LIVE_DELAY;
+    settings.streaming.delay.liveDelay = liveDelay;
     settings.streaming.abr.initialBitrate.video = INITIALBITRATE_VIDEO;
     settings.streaming.abr.autoSwitchBitrate.video = AUTOSWITCHBITRATE_VIDEO;
 
@@ -48,7 +48,7 @@ exports.register = function (stream) {
             utils.log(NAME, 'updateSettings');
 
             // update dash.js player settings
-            let updateSettings = getSettings(stream.settings);
+            let updateSettings = getSettings(stream.settings, LIVE_DELAY_IN_SEGMENTS * stream.SegmentLength );
             await command.execute(player.updateSettings,[updateSettings]);
 
             // check if settings have been applied
@@ -82,7 +82,7 @@ exports.register = function (stream) {
             var timestampStream = await command.execute(player.timeAsUTC,[]);
             var timestampClient = new Date().getTime()/1000;
             let actualLiveDelay = Math.round(timestampClient - timestampStream);
-            assert.approximately(actualLiveDelay,LIVE_DELAY, LIVE_DELAY * LIVE_DELAY_DELTA);
+            assert.approximately(actualLiveDelay,LIVE_DELAY_IN_SEGMENTS * stream.SegmentLength, LIVE_DELAY_IN_SEGMENTS * stream.SegmentLength * LIVE_DELAY_DELTA);
         });
     });
 }
