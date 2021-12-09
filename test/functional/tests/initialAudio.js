@@ -13,7 +13,6 @@ const intern = require('intern').default;
 const { suite, before, test} = intern.getPlugin('interface.tdd');
 const { assert } = intern.getPlugin('chai');
 
-const constants = require('./scripts/constants.js');
 const utils = require('./scripts/utils.js');
 const player = require('./scripts/player.js');
 
@@ -22,7 +21,7 @@ const NAME = 'INITIAL_AUDIO';
 
 // test constants
 const SWITCH_WAIT = 3;
-const SWITCH_TIMEOUT = 120;
+const TEST_SUITE_TIMEOUT = 120;
 
 exports.register = function (stream) {
 
@@ -31,16 +30,16 @@ exports.register = function (stream) {
         before(() => {
             if (!stream.available || stream.audioTracks.length <= 1) suite.skip();
             utils.log(NAME, 'Load stream');
-
+            
         });
 
         test('switch audio track', async (test) => {
-            test.timeout = SWITCH_TIMEOUT * 1000;
+            test.timeout = TEST_SUITE_TIMEOUT * 1000;
+            var command = test.remote.get(intern.config.testPage);
 
             for (let i = 0; i < stream.audioTracks.length ; i++) {
                 // reload page
-                command = test.remote.get(intern.config.testPage);
-                await command.execute(player.setAutoPlay, [false]);
+                command.refresh();
 
                 // set initial track
                 utils.log(NAME, 'set initial audio track: ' + stream.audioTracks[i].lang);
@@ -61,10 +60,6 @@ exports.register = function (stream) {
                 assert.deepEqual(newTrack.index, stream.audioTracks[i].index);
                 assert.deepEqual(newTrack.bitrateList.bandwidth, stream.audioTracks[i].bitrateList.bandwidth);
                 assert.deepEqual(newTrack.bitrateList.id, stream.audioTracks[i].bitrateList.id);
-
-                utils.log(NAME, 'Check if playing');
-                const progressing = await command.executeAsync(player.isProgressing, [constants.PROGRESS_DELAY, constants.EVENT_TIMEOUT]);
-                assert.isTrue(progressing);
             }
         });
     });

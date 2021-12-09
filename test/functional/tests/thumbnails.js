@@ -32,17 +32,11 @@ exports.register = function (stream) {
     suite(utils.testName(NAME, stream), (suite) => {
 
         before(async ({ remote }) => {
-            if (!stream.available || stream.dynamic) suite.skip();
+            if (!stream.available || stream.dynamic || !stream.hasThumbnail) suite.skip();
             utils.log(NAME, 'Load stream');
             command = remote.get(intern.config.testPage);
             await command.execute(player.loadStream, [stream]);
-
-            const playing = await command.executeAsync(player.isPlaying, [constants.EVENT_TIMEOUT]);
-            stream.available = playing;
-            assert.isTrue(playing);
             
-            var hasThumbnail = await command.execute(player.containsThumbnails, []);
-            if(!hasThumbnail) suite.skip();
         });
 
         test('check position', async () => {

@@ -81,7 +81,7 @@ exports.register = function (stream) {
             // check if live delay is approx. correct
             var timestampStream = await command.execute(player.timeAsUTC,[]);
             var timestampClient = new Date().getTime()/1000;
-            let actualLiveDelay = Math.floor(timestampClient - timestampStream);
+            let actualLiveDelay = Math.round(timestampClient - timestampStream);
             assert.approximately(actualLiveDelay,LIVE_DELAY, LIVE_DELAY * LIVE_DELAY_DELTA);
         });
     });

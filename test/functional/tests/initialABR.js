@@ -19,11 +19,9 @@ const lodash = require('lodash');
 const NAME = 'INITIAL_ABR';
 
 // Test constants
-const CHECKBITRATE_COUNT = 2;  // Amount of times to check bitrate after updating initial bitrate
 const INITIALBITRATE_VIDEO = 1800; // initial bitrate value
 const AUTOSWITCHBITRATE_VIDEO = false; // disable abr switching
 const QUALITY_DEFAULT_INDEX = 0; // return lowest quality index, if the bitrate is too low
-const WAIT_DURATION = 5; // time between bitrate checks
  
 /** Initial Bitrate is being set and ABR is being disabled */
 function getSettings(defaultSettings){
@@ -72,21 +70,14 @@ exports.register = function (stream) {
         });
 
         // repeat bitrate checks
-        for(let i = 0; i < CHECKBITRATE_COUNT; i++){
-            test('checkBitrate_' + i, async () => {
-                await command.sleep(WAIT_DURATION * 1000);
-                await command.executeAsync(player.isPlaying, [constants.EVENT_TIMEOUT]);
-                
-                // get current quality and all possible qualities
-                let bitrateInfoList = await command.execute(player.getBitrateInfoListFor,["video"]);
-                let actualQuality = await command.execute(player.getQualityFor,["video"]);
-                console.log(bitrateInfoList);
-                console.log(actualQuality);
-                
-                // check if bitrate was chosen correctly
-                let expectedQuality = expectedQualityIndex(bitrateInfoList, INITIALBITRATE_VIDEO);
-                assert.isAtMost(actualQuality,expectedQuality);
-            });
-        };
+        test('checkBitrate', async () => {
+            // get current quality and all possible qualities
+            let bitrateInfoList = await command.execute(player.getBitrateInfoListFor,["video"]);
+            let actualQuality = await command.execute(player.getQualityFor,["video"]);
+            
+            // check if bitrate was chosen correctly
+            let expectedQuality = expectedQualityIndex(bitrateInfoList, INITIALBITRATE_VIDEO);
+            assert.isAtMost(actualQuality,expectedQuality);
+        });
     });
 }

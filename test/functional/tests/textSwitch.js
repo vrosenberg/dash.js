@@ -61,10 +61,6 @@ exports.register = function (stream) {
                 utils.log(NAME, 'current text track: ' + newTrack.lang);
                 assert.deepEqual(newTrack.lang, stream.textTracks[i].lang);
                 assert.deepEqual(newTrack.index, stream.textTracks[i].index);
-
-                utils.log(NAME, 'Check if playing');
-                const progressing = await command.executeAsync(player.isProgressing, [constants.PROGRESS_DELAY, constants.EVENT_TIMEOUT]);
-                assert.isTrue(progressing);
             }
         });
     });

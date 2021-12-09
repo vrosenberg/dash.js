@@ -36,10 +36,10 @@ exports.register = function (stream) {
         test('switch text track', async (test) => {
             // Set test timeout
             test.timeout = SWITCH_TIMEOUT * 1000;
-
+            var command = test.remote.get(intern.config.testPage);
             for (let i = 0; i < stream.textTracks.length ; i++) {
                 // reload page
-                command = test.remote.get(intern.config.testPage);
+                command.refresh();
                 await command.execute(player.setAutoPlay, [false]);
 
                 //Load needed elements into doc for Captions to function
@@ -63,10 +63,6 @@ exports.register = function (stream) {
                 utils.log(NAME, 'current text track: ' + newTrack.lang);
                 assert.deepEqual(newTrack.lang, stream.textTracks[i].lang);
                 assert.deepEqual(newTrack.index, stream.textTracks[i].index);
-
-                utils.log(NAME, 'Check if playing');
-                const progressing = await command.executeAsync(player.isProgressing, [constants.PROGRESS_DELAY, constants.EVENT_TIMEOUT]);
-                assert.isTrue(progressing);
             }
         });
     });

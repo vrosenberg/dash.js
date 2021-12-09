@@ -46,6 +46,7 @@ exports.register = function (stream) {
             stream.duration = await command.execute(player.getDuration);
             stream.audioTracks = await command.execute(player.getTracksFor, ['audio']);
             stream.textTracks = await command.execute(player.getTracksFor, ['text']);
+            stream.hasThumbnail = await command.execute(player.containsThumbnails, []);
             stream.periods = [];
             let streams = await command.execute(player.getStreams);
             for (let i = 0; i < streams.length; i++ ) {

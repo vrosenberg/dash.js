@@ -1056,27 +1056,27 @@
             "submenu": [
                 {
                     "name": "Single adaption set, 7 tiles at 10x1, each thumb 320x180",
-                    "url": "//dash.akamaized.net/akamai/bbb_30fps/bbb_with_tiled_thumbnails.mpd",
+                    "url": "https://dash.akamaized.net/akamai/bbb_30fps/bbb_with_tiled_thumbnails.mpd",
                     "provider": "dashif"
                 },
                 {
                     "name": "Single adaption set, 4 tiles at 10x1, each thumb 205x115",
-                    "url": "//dash.akamaized.net/akamai/bbb_30fps/bbb_with_4_tiles_thumbnails.mpd",
+                    "url": "https://dash.akamaized.net/akamai/bbb_30fps/bbb_with_4_tiles_thumbnails.mpd",
                     "provider": "dashif"
                 },
                 {
                     "name": "Single adaption set, 1 tile at 10x20, each thumb 102x58",
-                    "url": "//dash.akamaized.net/akamai/bbb_30fps/bbb_with_tiled_thumbnails_2.mpd",
+                    "url": "https://dash.akamaized.net/akamai/bbb_30fps/bbb_with_tiled_thumbnails_2.mpd",
                     "provider": "dashif"
                 },
                 {
                     "name": "Two adaption sets with different thumb resolutions",
-                    "url": "//dash.akamaized.net/akamai/bbb_30fps/bbb_with_multiple_tiled_thumbnails.mpd",
+                    "url": "https://dash.akamaized.net/akamai/bbb_30fps/bbb_with_multiple_tiled_thumbnails.mpd",
                     "provider": "dashif"
                 },
                 {
                     "name": "Live stream, Single adaptation set, 1x1 tiles (livesim)",
-                    "url": "//livesim.dashif.org/livesim/testpic_2s/Manifest_thumbs.mpd",
+                    "url": "https://livesim.dashif.org/livesim/testpic_2s/Manifest_thumbs.mpd",
                     "provider": "dashif"
                 },
                 {

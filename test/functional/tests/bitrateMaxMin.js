@@ -20,8 +20,8 @@ const lodash = require('lodash');
 const NAME = 'BITRATE_MAX_MIN';
 
 // Test constants
-const MAXBITRATE_VIDEO = 990;
-const MINBITRATE_VIDEO = 980;
+const MAXBITRATE_VIDEO = 2000;
+const MINBITRATE_VIDEO = 800;
  
 /** Initial Bitrate is being set and ABR is being disabled */
 function getSettings(defaultSettings){
@@ -91,29 +91,10 @@ exports.register = function (stream) {
             await command.executeAsync(player.isPlaying, [constants.EVENT_TIMEOUT]);
         });
         
-        test('checkBitrate_0', async () => {
+        test('checkBitrate', async () => {
             // get current quality and all possible qualities
             let bitrateInfoList = await command.execute(player.getBitrateInfoListFor,["video"]);
-            console.log(bitrateInfoList);
-            let actualQuality = await command.execute(player.getQualityFor,["video"]);
-            console.log(actualQuality);            
-            //check if bitrate is inside interval 
-            assert.isTrue(insideBitrateInterval(bitrateInfoList,actualQuality, MAXBITRATE_VIDEO, MINBITRATE_VIDEO));
-        });
-
-        test('seek', async () =>{
-            // seek to random pos
-            const duration = await command.execute(player.getDuration);
-            seekPos = utils.generateSeekPos(duration);
-            const seeked = await command.executeAsync(player.seek, [seekPos, constants.EVENT_TIMEOUT]);
-            assert.isTrue(seeked);
-        });
-
-        test('checkBitrate_1', async () => {
-            // get current quality and all possible qualities
-            let bitrateInfoList = await command.execute(player.getBitrateInfoListFor,["video"]);
-            let actualQuality = await command.execute(player.getQualityFor,["video"]);
-
+            let actualQuality = await command.execute(player.getQualityFor,["video"]);   
             //check if bitrate is inside interval 
             assert.isTrue(insideBitrateInterval(bitrateInfoList,actualQuality, MAXBITRATE_VIDEO, MINBITRATE_VIDEO));
         });
