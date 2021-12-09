@@ -204,6 +204,5 @@ module.exports = {
         if(currentRep.hasOwnProperty("SegmentTemplate")){
             if(currentRep.SegmentTemplate.hasOwnProperty("duration")) return currentRep.SegmentTemplate.duration
         }
-        return default_segment_duration;
     },
 };

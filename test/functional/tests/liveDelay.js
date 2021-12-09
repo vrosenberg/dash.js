@@ -39,7 +39,7 @@ exports.register = function (stream) {
     suite(utils.testName(NAME, stream), (suite) => {
 
         before(async ({ remote }) => {
-            if (!stream.available || !stream.dynamic) suite.skip();
+            if (!stream.available || !stream.dynamic || stream.SegmentLength === undefined || stream.SegmentLength === null) suite.skip();
             utils.log(NAME, 'Load stream');
             command = remote.get(intern.config.testPage);
         });
