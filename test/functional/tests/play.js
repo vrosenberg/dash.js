@@ -41,20 +41,24 @@ exports.register = function (stream) {
         });
 
         after(async () => {
-            stream.settings = await command.execute(player.getSettings);
-            stream.dynamic = await command.execute(player.isDynamic);
-            stream.duration = await command.execute(player.getDuration);
-            stream.audioTracks = await command.execute(player.getTracksFor, ['audio']);
-            stream.textTracks = await command.execute(player.getTracksFor, ['text']);
-            stream.hasThumbnail = await command.execute(player.containsThumbnails, []);
-            stream.SegmentLength = await command.execute(player.getSegmentLength,[constants.SEGMENT_DURATION_DEFAULT]);
-            stream.periods = [];
-            let streams = await command.execute(player.getStreams);
-            for (let i = 0; i < streams.length; i++ ) {
-                stream.periods.push({
-                    start: streams[i].start,
-                    duration: streams[i].duration
-                });
+            try{
+                stream.settings = await command.execute(player.getSettings);
+                stream.dynamic = await command.execute(player.isDynamic);
+                stream.duration = await command.execute(player.getDuration);
+                stream.audioTracks = await command.execute(player.getTracksFor, ['audio']);
+                stream.textTracks = await command.execute(player.getTracksFor, ['text']);
+                stream.hasThumbnail = await command.execute(player.containsThumbnails, []);
+                stream.SegmentLength = await command.execute(player.getSegmentLength,[constants.SEGMENT_DURATION_DEFAULT]);
+                stream.periods = [];
+                let streams = await command.execute(player.getStreams);
+                for (let i = 0; i < streams.length; i++ ) {
+                    stream.periods.push({
+                        start: streams[i].start,
+                        duration: streams[i].duration
+                    });
+                }
+            } catch (error) {
+                console.log("ERROR in fetching meta data")
             }
         });
     });

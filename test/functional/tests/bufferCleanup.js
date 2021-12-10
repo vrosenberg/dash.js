@@ -19,8 +19,9 @@ const NAME = 'BUFFER_CLEANUP';
 
 // Test constants
 const BUFFER_TO_KEEP = 10;
-const BUFFER_PRUNING_INTERVAL = 3;
-const SLEEP = 10;
+const BUFFER_PRUNING_INTERVAL = 1;
+const RELATIVE_ERROR = 0.1
+
 
 /** Sets bufferToKeep and bufferPruningInterval */
 function getSettings(defaultSettings){
@@ -36,7 +37,7 @@ exports.register = function (stream) {
     suite(utils.testName(NAME, stream), (suite) => {
 
         before(async ({ remote }) => {
-            if (!stream.available) suite.skip();
+            if (!stream.available || stream.dynamic) suite.skip();
             utils.log(NAME, 'Load stream');
             command = remote.get(intern.config.testPage);
         });
@@ -63,18 +64,24 @@ exports.register = function (stream) {
             assert.isTrue(playing);
         });
 
-        test('progress for '+ SLEEP + 's', async () => {
+        test('progress', async () => {
             utils.log(NAME, 'Progress');
-
             var progressing = await command.executeAsync(player.isProgressing, [constants.PROGRESS_DELAY, constants.EVENT_TIMEOUT]);
             assert.isTrue(progressing);
-            await command.sleep(SLEEP * 1000);
-            progressing = await command.executeAsync(player.isProgressing, [constants.PROGRESS_DELAY, constants.EVENT_TIMEOUT]);
-            assert.isTrue(progressing);
+            let rand = Math.random() * 10;
+            await command.sleep( (BUFFER_TO_KEEP + rand)*1000);
+            await command.execute(player.pause,[]);
         });
 
         test('Check BUffer', async () => {
+            //compute actually pruned buffer
+            let bufferStart  = await command.execute(player.getBufferRange,[]);
+            let playerTime = await command.execute(player.getTime,[]);
+            let actualBufferPruned = playerTime - bufferStart;
 
+            //check against expected
+            let delta = BUFFER_TO_KEEP * RELATIVE_ERROR + BUFFER_PRUNING_INTERVAL;
+            assert.approximately(actualBufferPruned,BUFFER_TO_KEEP,delta);
         });
 
     });

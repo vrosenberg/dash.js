@@ -205,4 +205,9 @@ module.exports = {
             if(currentRep.SegmentTemplate.hasOwnProperty("duration")) return currentRep.SegmentTemplate.duration
         }
     },
+
+    getBufferRange: function(){
+        let videoProcessor = player.getActiveStream().getProcessors().find((e)=>{return e.getType() === "video"})
+        return videoProcessor.getBuffer().getBuffer().buffered.start(0);
+    }
 };
