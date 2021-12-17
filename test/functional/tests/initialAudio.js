@@ -20,7 +20,7 @@ const player = require('./scripts/player.js');
 const NAME = 'INITIAL_AUDIO';
 
 // test constants
-const SWITCH_WAIT = 3;
+const SWITCH_WAIT = 0;
 const TEST_SUITE_TIMEOUT = 120;
 
 exports.register = function (stream) {

@@ -21,7 +21,7 @@ const player = require('./scripts/player.js');
 const NAME = 'INITIAL_TEXT';
 
 // test constants
-const SWITCH_WAIT = 3;
+const SWITCH_WAIT = 0;
 const SWITCH_TIMEOUT = 120;
 
 exports.register = function (stream) {

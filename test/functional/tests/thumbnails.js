@@ -18,7 +18,7 @@ const player = require('./scripts/player.js');
 const NAME = 'THUMBNAIL';
 
 // Test constants
-const SLEEP = 3; // sleep duration in sec
+const SLEEP = 1; // sleep duration in sec
 
 /** return the current timestamp of the thumbnail in sec */
 async function currTimeStamp(thumbnail_time_label){
@@ -53,7 +53,7 @@ exports.register = function (stream) {
 
             // get curr timestamp
             var timeLabelElement = await command.findById('thumbnail-time-label');
-            actualTimeStamp = await currTimeStamp(timeLabelElement);
+            let actualTimeStamp = await currTimeStamp(timeLabelElement);
             
             // expected timestamp
             const duration = await command.execute(player.getDuration);

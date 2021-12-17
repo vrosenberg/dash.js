@@ -67,14 +67,6 @@ exports.register = function (stream) {
             assert.isTrue(playing);
         });
 
-        test('progress', async () => {
-            utils.log(NAME, 'Progress');
-            
-            // check if progressing
-            const progressing = await command.executeAsync(player.isProgressing, [constants.PROGRESS_DELAY, constants.EVENT_TIMEOUT]);
-            assert.isTrue(progressing);
-        });
-
         test('checkLiveDelay', async () => {
             utils.log(NAME, 'Check live delay');
 
